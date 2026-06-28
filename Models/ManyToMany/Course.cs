@@ -8,14 +8,13 @@ public class Course
 
     private Course() { }
 
-    internal Course(Guid id, string title, ICollection<Enrollment> enrollments)
+    public Course(Guid id, string title)
     {
         Id = id;
         Title = title;
-        Enrollments = enrollments;
     }
 
-    public Course(string title, ICollection<Enrollment> enrollments) :
-        this(Guid.NewGuid(), title, enrollments)
+    public Course(string title) :
+        this(Guid.NewGuid(), title)
     { }
 }

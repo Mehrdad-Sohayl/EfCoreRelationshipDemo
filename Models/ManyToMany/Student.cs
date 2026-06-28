@@ -8,14 +8,13 @@ public class Student
 
     private Student() { }
 
-    internal Student(Guid id, string fullName, ICollection<Enrollment> enrollments)
+    public Student(Guid id, string fullName)
     {
         Id = id;
         FullName = fullName;
-        Enrollments = enrollments;
     }
 
-    public Student(string fullName, ICollection<Enrollment> enrollments) :
-        this(Guid.NewGuid(), fullName, enrollments)
+    public Student(string fullName) :
+        this(Guid.NewGuid(), fullName)
     { }
 }

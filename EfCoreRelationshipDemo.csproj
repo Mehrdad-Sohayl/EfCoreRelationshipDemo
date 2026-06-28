@@ -5,7 +5,8 @@
 		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-	</PropertyGroup>
+	  <UserSecretsId>08c9293a-07a4-4afe-983b-cea48654f149</UserSecretsId>
+  </PropertyGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.15" />
@@ -15,6 +16,7 @@
 	  </PackageReference>
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.15" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.15" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.15" />
 	  <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.15" />
 	</ItemGroup>
 
