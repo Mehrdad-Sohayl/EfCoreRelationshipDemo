@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace EfCoreRelationshipDemo.Models.OneToMany;
+﻿namespace EfCoreRelationshipDemo.Models.OneToMany;
 
 public class Blog
 {

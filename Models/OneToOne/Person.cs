@@ -8,7 +8,7 @@ public class Person
 
     private Person() { }
 
-    internal Person(Guid id, string name, Passport passport)
+    public Person(Guid id, string name, Passport passport)
     {
         Id = id;
         Name = name;
