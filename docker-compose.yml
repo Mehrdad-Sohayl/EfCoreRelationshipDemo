@@ -1,0 +1,15 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "M3hrd@d50h@y1"
+    ports:
+      - "1433:1433"
+
+  app:
+    build: .
+    depends_on:
+      - sqlserver
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=EfCore_Db;User Id=sa;Password=M3hrd@d50h@y1;TrustServerCertificate=true;"
