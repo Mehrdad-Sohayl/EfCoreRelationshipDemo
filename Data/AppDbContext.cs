@@ -1,4 +1,4 @@
-﻿using EfCoreRelationshipDemo.Models.ManyToMany;
+using EfCoreRelationshipDemo.Models.ManyToMany;
 using EfCoreRelationshipDemo.Models.OneToMany;
 using EfCoreRelationshipDemo.Models.OneToOne;
 using Microsoft.EntityFrameworkCore;
@@ -19,18 +19,50 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Person>(e =>
+        {
+            e.Property(p => p.Name).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<Passport>(e =>
+        {
+            e.HasKey(p => p.PersonId);
+            e.Property(p => p.PersonId).ValueGeneratedNever();
+            e.Property(p => p.Number).HasMaxLength(20);
+            e.HasIndex(p => p.Number).IsUnique();
+        });
+
         modelBuilder.Entity<Person>()
             .HasOne<Passport>(p => p.Passport)
             .WithOne(pp => pp.Person)
-            .HasForeignKey<Passport>(pp => pp.PersonId);
+            .HasForeignKey<Passport>(pp => pp.PersonId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Blog>(e =>
+        {
+            e.Property(b => b.Url).HasMaxLength(500);
+        });
+
+        modelBuilder.Entity<Post>(e =>
+        {
+            e.Property(p => p.Title).HasMaxLength(200);
+            e.Property(p => p.Content).HasMaxLength(2000);
+        });
 
         modelBuilder.Entity<Blog>()
             .HasMany<Post>(b => b.Posts)
             .WithOne(p => p.Blog)
             .HasForeignKey(p => p.BlogId);
 
-        modelBuilder.Entity<Post>()
-            .HasOne<Blog>(p => p.Blog);
+        modelBuilder.Entity<Student>(e =>
+        {
+            e.Property(s => s.FullName).HasMaxLength(150);
+        });
+
+        modelBuilder.Entity<Course>(e =>
+        {
+            e.Property(c => c.Title).HasMaxLength(200);
+        });
 
         modelBuilder.Entity<Enrollment>()
              .HasKey(e => new { e.StudentId, e.CourseId });
