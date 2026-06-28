@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EfCoreRelationshipDemo.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260510100920_InitialCreate")]
+    [Migration("20260628132844_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -33,7 +33,8 @@ namespace EfCoreRelationshipDemo.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
@@ -66,7 +67,8 @@ namespace EfCoreRelationshipDemo.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.HasKey("Id");
 
@@ -81,7 +83,8 @@ namespace EfCoreRelationshipDemo.Migrations
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.HasKey("Id");
 
@@ -99,11 +102,13 @@ namespace EfCoreRelationshipDemo.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
@@ -114,20 +119,17 @@ namespace EfCoreRelationshipDemo.Migrations
 
             modelBuilder.Entity("EfCoreRelationshipDemo.Models.OneToOne.Passport", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("PersonId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Number")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("uniqueidentifier");
+                    b.HasKey("PersonId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("PersonId")
+                    b.HasIndex("Number")
                         .IsUnique();
 
                     b.ToTable("Passports");
@@ -141,7 +143,8 @@ namespace EfCoreRelationshipDemo.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -183,7 +186,7 @@ namespace EfCoreRelationshipDemo.Migrations
                     b.HasOne("EfCoreRelationshipDemo.Models.OneToOne.Person", "Person")
                         .WithOne("Passport")
                         .HasForeignKey("EfCoreRelationshipDemo.Models.OneToOne.Passport", "PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Person");
